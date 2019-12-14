@@ -21,5 +21,8 @@
   "devDependencies": {
     "@types/node": "^12.12.17",
     "typescript": "^3.7.3"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3"
   }
 }
