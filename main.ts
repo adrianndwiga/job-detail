@@ -1,6 +1,7 @@
 import * as https from 'https'
 import { readFileSync } from 'fs'
 import * as cheerio from 'cheerio'
+import { DownladJobDetails } from './download-job-details'
 
 interface JobSearchSetting {
     url: string,
@@ -64,10 +65,7 @@ function request(url: string, cookie: string = ''): Promise<string> {
     })
 }
 
-const files = JSON.parse(readFileSync('../_queues/jobs-queue.json', 'utf8'))
-const config = JSON.parse(readFileSync('config.json', 'utf8'))
-
-function loadJobDetail(baseUrl: string, html: string) {
+function loadJobDetail(baseUrl: string, html: string, config: any) {
     const $ = cheerio.load(html)
 
     for(const c in config)
@@ -75,17 +73,37 @@ function loadJobDetail(baseUrl: string, html: string) {
             console.log($(config[c].description).text())
 }
 
-async function loadJob(job: Job, cookie: string, baseUrl: string): Promise<void> {
+async function loadJob(job: Job, cookie: string, baseUrl: string, config: any): Promise<void> {
     const response = await request(job.link.startsWith('https://') ? job.link : `${baseUrl}${job.link}`, cookie)
-    loadJobDetail(baseUrl, response)
+    loadJobDetail(baseUrl, response, config)
 }
 
-async function loadJobs(file: string): Promise<void> {
+async function loadJobs(file: string, config: any): Promise<void> {
     const jobSearch: Jobs = JSON.parse(readFileSync(file, 'utf8'))
 
     for(const job of jobSearch.jobs)
-        loadJob(job, jobSearch.jobSearch.cookie, jobSearch.jobSearch.baseUrl)
+        loadJob(job, jobSearch.jobSearch.cookie, jobSearch.jobSearch.baseUrl, config)
 }
 
-for(const file of files)
-    loadJobs(file)
+class JobDetail {
+    /**
+     *
+     */
+    constructor(urls: string[]) {
+        // super();
+        
+    }
+}
+
+if (process.argv.filter(a => a.startsWith('--download-job-details'))) {
+    (async () => {
+        const downloadJobDetails = new DownladJobDetails('./config.json', './data.json')
+        await downloadJobDetails.load();    
+    })()
+} else {
+    const files = JSON.parse(readFileSync('../_queues/jobs-queue.json', 'utf8'))
+    const config = JSON.parse(readFileSync('config.json', 'utf8'))
+        
+    for(const file of files)
+        loadJobs(file, config)
+}
