@@ -6,7 +6,7 @@ interface CssConfig {
     company: string
     contact: string
     description: string
-    location: string
+    location: string | string[]
     salary: string
 }
 
@@ -27,7 +27,7 @@ interface Job {
 const jobs = JSON.parse(readFileSync('./data.json', 'utf8')) as JobDetailItem[]
 const config = JSON.parse(readFileSync('./load-job-details/config.json', 'utf8'))
 
-for(const job of jobs) {
+for(const job of jobs.filter(j => j.url.includes('totaljobs.com'))) {
     console.log(loadJob(job))
 }
 
@@ -48,12 +48,28 @@ function loadJob(item: JobDetailItem): Job {
     const css: CssConfig =  getCssConfig(item)
     const $ = cheerio.load(item.content)
 
+    let location = ''
+    if (typeof(css['location']) === 'string') {
+        location = css['location'] ? $(css['location']).text()
+        .replace(/\n/g, '')
+        .replace(/\t/g, '')
+        .trim() : ""
+    } else if(typeof(css['location']) === 'object') {
+        for(const l of css['location']) {
+            if ($(l).text()) {
+                location = $(l).text().replace(/\n/g, '')
+                .replace(/\t/g, '')
+                .trim()
+            }
+        }
+    }
+
     return {
         title: $(css.title).text().replace(/\n/g, '').replace(/\t/g, '').trim(),
         description: $(css.description).html(),
         company: text($, css, 'company'), // css.company ? $(css.company).html() : "",
         contact: text($, css, 'contact').replace(/contact: /gi, ''),
-        location: text($, css, 'location'),
+        location: location,
         salary: text($, css, 'salary')
     }
 }
