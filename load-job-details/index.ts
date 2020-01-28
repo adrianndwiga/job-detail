@@ -27,7 +27,7 @@ interface Job {
 const jobs = JSON.parse(readFileSync('./data.json', 'utf8')) as JobDetailItem[]
 const config = JSON.parse(readFileSync('./load-job-details/config.json', 'utf8'))
 
-for(const job of jobs.filter(j => j.url.includes('totaljobs.com'))) {
+for(const job of jobs) {
     console.log(loadJob(job))
 }
 
