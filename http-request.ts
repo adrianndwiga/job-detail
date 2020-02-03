@@ -13,7 +13,7 @@ export function request(url: string, cookie: string = ''): Promise<string | {url
 
             response.on('end', () => {
                 if (response.statusCode === 302) {
-                    const location = response.headers.location
+                    const location = response.headers.location as string
                     resolve({url, location, data})
                 }
                 resolve(data)
