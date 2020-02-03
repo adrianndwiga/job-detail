@@ -98,8 +98,8 @@ class JobDetail {
 
 if (process.argv.filter(a => a.startsWith('--download-job-details'))) {
     (async () => {
-        const downloadJobDetails = new DownladJobDetails('./config.json', './data.json')
-        await downloadJobDetails.load()
+        // const downloadJobDetails = new DownladJobDetails('./config.json', './data.json')
+        // await downloadJobDetails.load()
     })()
 } else {
     const files = JSON.parse(readFileSync('../_queues/jobs-queue.json', 'utf8'))
