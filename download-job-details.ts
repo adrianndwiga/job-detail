@@ -15,20 +15,20 @@ export class DownladJobDetails {
         return new Promise<void>(async (resolve, reject) => {
             let saveChanges = false
             for(const url of this.urls) {
-                let jobDownloaded = this.jobDetailsContent.filter(x => x.url === url).length > 0
+                const jobDownloaded = this.jobDetailsContent.filter(x => x.url === url).length > 0
                 if (!jobDownloaded) {
                     const content = await request(url)
-                    if(typeof(content) === 'string') 
+                    if(typeof(content) === 'string')
                         this.jobDetailsContent.push({url, content})
                     else if (typeof(content) === 'object') {
-                        const v = content as {url: string, data: string, location: string} 
+                        const v = content as {url: string, data: string, location: string}
                         if (!(this.jobDetailsContent.filter(x => x.url === v.location).length > 0)) {
                             const c = await request(v.location) as string
-                            this.jobDetailsContent.push({url: v.location, content: c})    
+                            this.jobDetailsContent.push({url: v.location, content: c})
                         }
                     }
                     saveChanges = true
-                } 
+                }
             }
             if (saveChanges) {
                 writeFileSync(this.jobDetailContentFile, JSON.stringify(this.jobDetailsContent, null, 4), 'utf8')
