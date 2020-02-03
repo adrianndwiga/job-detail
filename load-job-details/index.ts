@@ -1,4 +1,3 @@
-// import { readFileSync } from "fs"
 import * as cheerio from "cheerio"
 
 interface CssConfig {
@@ -24,27 +23,6 @@ interface Job {
     salary: string
 }
 
-// const jobs = JSON.parse(readFileSync('./data.json', 'utf8')) as JobDetailItem[]
-// const config = JSON.parse(readFileSync('./load-job-details/config.json', 'utf8'))
-
-// for(const job of jobs) {
-//     // console.log(loadJob(job))
-// }
-
-// function getCssConfig(item: JobDetailItem, ): CssConfig {
-//     for(const c in config)
-//         if (item.url.includes(c))
-//             return config[c] as CssConfig
-//     return undefined
-// }
-
-// function text($: any, css: CssConfig, selector: string): string {
-//     return css[selector] ? $(css[selector]).text()
-//             .replace(/\n/g, '')
-//             .replace(/\t/g, '')
-//             .trim() : ""
-// }
-
 function text(key: string | undefined, value: string): string {
     if (key)
         return value ? value
@@ -55,7 +33,6 @@ function text(key: string | undefined, value: string): string {
 }
 
 export function loadJob(css: CssConfig, item: JobDetailItem): Job {
-    // const css: CssConfig =  getCssConfig(item)
     const $ = cheerio.load(item.content)
 
     let location = ''
@@ -77,7 +54,7 @@ export function loadJob(css: CssConfig, item: JobDetailItem): Job {
     return {
         title: $(css.title).text().replace(/\n/g, '').replace(/\t/g, '').trim(),
         description: $(css.description).html() as string,
-        company: text(css.company, $(css.company).text()), // css.company ? $(css.company).html() : "",
+        company: text(css.company, $(css.company).text()),
         contact: text(css.contact, $(css.contact).text()).replace(/contact: /gi, ''),
         location,
         salary: text(css.salary, $(css.salary).text())
