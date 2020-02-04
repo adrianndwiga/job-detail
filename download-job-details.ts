@@ -1,7 +1,7 @@
 // import { readFileSync, existsSync, writeFileSync } from "fs"
 import { request } from "./http-request"
 
-export class DownladJobDetails {
+export default class DownloadJobDetails {
 
     // private readonly urls: string[]
     // private readonly jobDetailsContent: {url: string, content: string}[]
