@@ -1,7 +1,7 @@
 import * as https from 'https'
 import { readFileSync } from 'fs'
 import * as cheerio from 'cheerio'
-import { DownladJobDetails } from './download-job-details'
+// import { DownladJobDetails } from './download-job-details'
 
 interface JobSearchSetting {
     url: string,

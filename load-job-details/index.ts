@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio"
 
-interface CssConfig {
+export interface CssConfig {
     title: string
     company?: string
     contact?: string
