@@ -1,4 +1,6 @@
 import { CssSelector } from "../selectors/css-selector"
+import { SelectorAdapter } from "../selectors/selector-adapter"
+import { XPathSelector } from "../selectors/xpath-selector"
 
 export interface CssConfig {
     title: string
@@ -25,15 +27,18 @@ interface Job {
 
 export function loadJob(css: CssConfig, item: JobDetailItem): Job {
 
-    const selector = new CssSelector(item, css)
+    const selectorAdapter = new SelectorAdapter(
+                                new CssSelector(item, css),
+                                new XPathSelector(item, css),
+                                css)
 
     return {
-        title: selector.title(),
-        description: selector.description(),
-        company: selector.company(),
-        contact: selector.contact(),
-        location: selector.location(),
-        salary: selector.salary()
+        title: selectorAdapter.title(),
+        description: selectorAdapter.description(),
+        company: selectorAdapter.company(),
+        contact: selectorAdapter.contact(),
+        location: selectorAdapter.location(),
+        salary: selectorAdapter.salary()
     }
 
 }
