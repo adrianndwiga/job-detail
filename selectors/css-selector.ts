@@ -1,5 +1,6 @@
 import { Selector } from "./types"
 import { JobDetailItem, CssConfig } from "../load-job-details"
+import * as cheerio from 'cheerio'
 
 export class CssSelector implements Selector {
     private readonly $: CheerioStatic
