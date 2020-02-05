@@ -15,10 +15,12 @@ export class SelectorAdapter implements Selector {
             this.xpathSelector.title() :
             this.cssSelector.title()
     }
+
     description(): string {
         return this.isXpath(this.config.description) ?
             this.xpathSelector.description() :
             this.cssSelector.description()    }
+
     company(): string {
         if (this.config.company)
             return this.isXpath(this.config.company) ?
@@ -27,6 +29,7 @@ export class SelectorAdapter implements Selector {
         else
             return ''
     }
+
     location(): string {
         if (this.config.location && typeof(this.config.location) === 'string')
             return this.isXpath(this.config.location) ?
@@ -35,6 +38,7 @@ export class SelectorAdapter implements Selector {
         else
             return ''
     }
+
     contact(): string {
         if (this.config.contact)
             return this.isXpath(this.config.contact) ?
@@ -43,6 +47,7 @@ export class SelectorAdapter implements Selector {
         else
             return ''
     }
+
     salary(): string {
         if (this.config.salary)
             return this.isXpath(this.config.salary) ?
