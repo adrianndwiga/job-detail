@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
+    "xmldom": "^0.2.1",
     "xpath": "0.0.27"
   }
 }
