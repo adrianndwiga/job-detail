@@ -93,31 +93,17 @@ export class CssSelector implements Selector {
 }
 
 export function loadJob(css: CssConfig, item: JobDetailItem): Job {
-    const $ = cheerio.load(item.content)
 
-    let location = ''
-    if (typeof(css.location) === 'string') {
-        location = css.location ? $(css.location).text()
-        .replace(/\n/g, '')
-        .replace(/\t/g, '')
-        .trim() : ""
-    } else if(typeof(css.location) === 'object') {
-        for(const l of css.location) {
-            if ($(l).text()) {
-                location = $(l).text().replace(/\n/g, '')
-                .replace(/\t/g, '')
-                .trim()
-            }
-        }
-    }
+    const selector = new CssSelector(item, css)
 
     return {
-        title: $(css.title).text().replace(/\n/g, '').replace(/\t/g, '').trim(),
-        description: $(css.description).html() as string,
-        company: text(css.company, $(css.company).text()),
-        contact: text(css.contact, $(css.contact).text()).replace(/contact: /gi, ''),
-        location,
-        salary: text(css.salary, $(css.salary).text())
+        title: selector.title(),
+        description: selector.description(),
+        company: selector.company(),
+        contact: selector.contact(),
+        location: selector.location(),
+        salary: selector.salary()
     }
+
 }
 
