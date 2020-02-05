@@ -27,18 +27,18 @@ interface Job {
 
 export function loadJob(css: CssConfig, item: JobDetailItem): Job {
 
-    const selectorAdapter = new SelectorAdapter(
+    const selector = new SelectorAdapter(
                                 new CssSelector(item, css),
                                 new XPathSelector(item, css),
                                 css)
 
     return {
-        title: selectorAdapter.title(),
-        description: selectorAdapter.description(),
-        company: selectorAdapter.company(),
-        contact: selectorAdapter.contact(),
-        location: selectorAdapter.location(),
-        salary: selectorAdapter.salary()
+        title: selector.title(),
+        description: selector.description(),
+        company: selector.company(),
+        contact: selector.contact(),
+        location: selector.location(),
+        salary: selector.salary()
     }
 
 }
