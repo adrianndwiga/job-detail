@@ -52,7 +52,7 @@ export class CssSelector implements Selector {
         return this.$(this.css.title).text().replace(/\n/g, '').replace(/\t/g, '').trim()
     }
     description(): string {
-        throw new Error("Method not implemented.")
+        return this.$(this.css.description).html() as string
     }
     company(): string {
         throw new Error("Method not implemented.")
