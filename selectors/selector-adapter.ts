@@ -1,13 +1,17 @@
-import { Selector } from "./types";
-import { CssSelector } from "./css-selector";
-import { XPathSelector } from "./xpath-selector";
-import { CssConfig } from "../load-job-details";
+import { Selector } from "./types"
+import { CssSelector } from "./css-selector"
+import { XPathSelector } from "./xpath-selector"
+import { CssConfig, JobDetailItem } from "../load-job-details"
 
 export class SelectorAdapter implements Selector {
-    constructor(
-        private readonly cssSelector: CssSelector,
-        private readonly xpathSelector: XPathSelector,
-        private readonly config: CssConfig) {
+
+    private readonly cssSelector: CssSelector
+    private readonly xpathSelector: XPathSelector
+
+    constructor(private readonly config: CssConfig, item: JobDetailItem) {
+        this.cssSelector = new CssSelector(item, config)
+        this.xpathSelector = new XPathSelector(item, config)
+
     }
 
     title(): string {
