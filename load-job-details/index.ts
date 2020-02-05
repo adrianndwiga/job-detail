@@ -67,7 +67,22 @@ export class CssSelector implements Selector {
         return this.text(this.css.company, this.$(this.css.company).text())
     }
     location(): string {
-        throw new Error("Method not implemented.")
+        let location = ''
+        if (typeof(this.css.location) === 'string') {
+            location = this.css.location ? this.$(this.css.location).text()
+            .replace(/\n/g, '')
+            .replace(/\t/g, '')
+            .trim() : ""
+        } else if(typeof(this.css.location) === 'object') {
+            for(const l of this.css.location) {
+                if (this.$(l).text()) {
+                    location = this.$(l).text().replace(/\n/g, '')
+                    .replace(/\t/g, '')
+                    .trim()
+                }
+            }
+        }
+        return location
     }
     contact(): string {
         return this.text(this.css.contact, this.$(this.css.contact).text()).replace(/contact: /gi, '')
