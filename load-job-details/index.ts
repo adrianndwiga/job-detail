@@ -41,6 +41,33 @@ export interface Selector {
     salary(): string
 }
 
+export class CssSelector implements Selector {
+    private readonly $: CheerioStatic
+
+    constructor(private readonly item: JobDetailItem) {
+        this.$ = cheerio.load(item.content)
+    }
+
+    title(): string {
+        throw new Error("Method not implemented.")
+    }
+    description(): string {
+        throw new Error("Method not implemented.")
+    }
+    company(): string {
+        throw new Error("Method not implemented.")
+    }
+    location(): string {
+        throw new Error("Method not implemented.")
+    }
+    contact(): string {
+        throw new Error("Method not implemented.")
+    }
+    salary(): string {
+        throw new Error("Method not implemented.")
+    }
+}
+
 export function loadJob(css: CssConfig, item: JobDetailItem): Job {
     const $ = cheerio.load(item.content)
 
