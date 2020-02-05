@@ -32,6 +32,15 @@ function text(key: string | undefined, value: string): string {
     return ''
 }
 
+export interface Selector {
+    title(): string
+    description(): string
+    company(): string
+    location(): string
+    contact(): string
+    salary(): string
+}
+
 export function loadJob(css: CssConfig, item: JobDetailItem): Job {
     const $ = cheerio.load(item.content)
 
