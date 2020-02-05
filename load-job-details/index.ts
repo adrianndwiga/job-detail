@@ -48,6 +48,15 @@ export class CssSelector implements Selector {
         this.$ = cheerio.load(item.content)
     }
 
+    private text(key: string | undefined, value: string): string {
+        if (key)
+            return value ? value
+                    .replace(/\n/g, '')
+                    .replace(/\t/g, '')
+                    .trim() : ""
+        return ''
+    }
+
     title(): string {
         return this.$(this.css.title).text().replace(/\n/g, '').replace(/\t/g, '').trim()
     }
@@ -55,7 +64,7 @@ export class CssSelector implements Selector {
         return this.$(this.css.description).html() as string
     }
     company(): string {
-        throw new Error("Method not implemented.")
+        return this.text(this.css.company, this.$(this.css.company).text())
     }
     location(): string {
         throw new Error("Method not implemented.")
