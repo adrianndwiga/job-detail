@@ -44,12 +44,12 @@ export interface Selector {
 export class CssSelector implements Selector {
     private readonly $: CheerioStatic
 
-    constructor(private readonly item: JobDetailItem) {
+    constructor(item: JobDetailItem, private readonly css: CssConfig) {
         this.$ = cheerio.load(item.content)
     }
 
     title(): string {
-        throw new Error("Method not implemented.")
+        return this.$(this.css.title).text().replace(/\n/g, '').replace(/\t/g, '').trim()
     }
     description(): string {
         throw new Error("Method not implemented.")
