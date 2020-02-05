@@ -70,7 +70,7 @@ export class CssSelector implements Selector {
         throw new Error("Method not implemented.")
     }
     contact(): string {
-        throw new Error("Method not implemented.")
+        return this.text(this.css.contact, this.$(this.css.contact).text()).replace(/contact: /gi, '')
     }
     salary(): string {
         throw new Error("Method not implemented.")
