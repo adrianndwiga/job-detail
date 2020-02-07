@@ -39,7 +39,14 @@ export class SelectorAdapter implements Selector {
             return this.isXpath(this.config.location) ?
                 this.xpathSelector.location() :
                 this.cssSelector.location()
-        else
+        else if (this.config.location && typeof(this.config.location) === 'object') {
+            for(const location of this.config.location)
+                if (location)
+                    return this.isXpath(location) ?
+                        this.xpathSelector.location() :
+                        this.cssSelector.location()
+            return ''
+        } else
             return ''
     }
 
