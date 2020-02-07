@@ -12,16 +12,16 @@ export class XPathSelector implements Selector {
     }
 
     title(): string {
-        return xpath.select(this.css.title, this.document)[0].toString()
+        return xpath.select(this.css.title, this.document).toString()
     }
 
     description(): string {
-        return xpath.select(this.css.description, this.document)[0].toString()
+        return xpath.select(this.css.description, this.document).toString()
     }
 
     company(): string {
         return this.css.company ?
-            xpath.select(this.css.company, this.document)[0].toString() :
+            xpath.select(this.css.company, this.document).toString() :
             ''
     }
 
@@ -33,13 +33,13 @@ export class XPathSelector implements Selector {
 
     contact(): string {
         if (this.css.contact)
-            return xpath.select(this.css.contact, this.document)[0].toString()
+            return xpath.select(this.css.contact, this.document).toString()
         return ''
     }
 
     salary(): string {
         if (this.css.salary)
-            return xpath.select(this.css.salary, this.document)[0].toString()
+            return xpath.select(this.css.salary, this.document).toString()
         return ''
     }
 }

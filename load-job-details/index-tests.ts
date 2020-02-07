@@ -66,7 +66,7 @@ describe('load job', () => {
     describe('using xpath selector', () => {
         it('should load job details', () => {
             const job = loadJob({
-                title: '//h1/text()////',
+                title: '//h1/text()',
                 company: '//div[@class="company"]/text()',
                 contact: '//div[@class="contact"]/text()',
                 description: '//div[@class="description"]/text()',
