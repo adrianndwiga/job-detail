@@ -2,6 +2,14 @@ import { loadJob } from "."
 import * as assert from 'assert'
 
 describe('load job', () => {
+    const expectedJob = {
+        title: 'some title',
+        company: 'some company',
+        contact: 'some contact',
+        description: 'some description',
+        location: 'some location',
+        salary: 'some salary'
+    }
 
     describe('using css selector', () => {
         it('should load job details', () => {
@@ -16,15 +24,19 @@ describe('load job', () => {
                 url: '',
                 content: `<root>
                     <h1>some title</h1>
-                    <div class="company">some company</div>
-                    <div class="contact">some contact</div>
-                    <div class="description">some description</div>
-                    <div class="location">some location</div>
-                    <div class="salary">some salary</div>
+                    <div class="company">${expectedJob.company}</div>
+                    <div class="contact">${expectedJob.contact}</div>
+                    <div class="description">${expectedJob.description}</div>
+                    <div class="location">${expectedJob.location}</div>
+                    <div class="salary">${expectedJob.salary}</div>
                 </root>`
             })
 
-            assert.equal(job.location, 'some location')
+            assert.equal(job.company, expectedJob.company)
+            assert.equal(job.contact, expectedJob.contact)
+            assert.equal(job.description, expectedJob.description)
+            assert.equal(job.location, expectedJob.location)
+            assert.equal(job.salary, expectedJob.salary)
         })
 
         it('should load job details 2', () => {
@@ -54,7 +66,7 @@ describe('load job', () => {
     describe('using xpath selector', () => {
         it('should load job details', () => {
             const job = loadJob({
-                title: '//h1',
+                title: '//h1/text()',
                 company: '//div[@class="company"]',
                 contact: '//div[@class="contact"]',
                 description: '//div[@class="description"]',
@@ -72,6 +84,7 @@ describe('load job', () => {
                 </root>`
             })
 
+            assert.equal(job.title, 'some title')
             assert.equal(job.location, 'some location')
         })
     })
