@@ -23,6 +23,7 @@
     "@types/cheerio": "^0.22.16",
     "@types/node": "^12.12.17",
     "@types/xmldom": "^0.1.29",
+    "mocha": "^7.0.1",
     "tslint": "^6.0.0",
     "typescript": "^3.7.3"
   },
