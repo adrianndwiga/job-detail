@@ -1,4 +1,4 @@
-import { loadJob } from "."
+import { loadJob, Job } from "."
 import * as assert from 'assert'
 
 describe('load job', () => {
@@ -11,6 +11,24 @@ describe('load job', () => {
         salary: 'some salary'
     }
 
+    const verify = (job: Job): void => {
+        assert.equal(job.title, expectedJob.title)
+        assert.equal(job.company, expectedJob.company)
+        assert.equal(job.contact, expectedJob.contact)
+        assert.equal(job.description, expectedJob.description)
+        assert.equal(job.location, expectedJob.location)
+        assert.equal(job.salary, expectedJob.salary)
+    }
+
+    const jobContent = `<root>
+    <h1>some title</h1>
+    <div class="company">${expectedJob.company}</div>
+    <div class="contact">${expectedJob.contact}</div>
+    <div class="description">${expectedJob.description}</div>
+    <div class="location">${expectedJob.location}</div>
+    <div class="salary">${expectedJob.salary}</div>
+</root>`
+
     describe('using css selector', () => {
         it('should load job details', () => {
             const job = loadJob({
@@ -22,21 +40,10 @@ describe('load job', () => {
                 salary: 'div.salary'
             }, {
                 url: '',
-                content: `<root>
-                    <h1>some title</h1>
-                    <div class="company">${expectedJob.company}</div>
-                    <div class="contact">${expectedJob.contact}</div>
-                    <div class="description">${expectedJob.description}</div>
-                    <div class="location">${expectedJob.location}</div>
-                    <div class="salary">${expectedJob.salary}</div>
-                </root>`
+                content: jobContent
             })
 
-            assert.equal(job.company, expectedJob.company)
-            assert.equal(job.contact, expectedJob.contact)
-            assert.equal(job.description, expectedJob.description)
-            assert.equal(job.location, expectedJob.location)
-            assert.equal(job.salary, expectedJob.salary)
+            verify(job)
         })
 
         it('should load job details 2', () => {
@@ -49,43 +56,28 @@ describe('load job', () => {
                 salary: 'div.salary'
             }, {
                 url: '',
-                content: `<root>
-                    <h1>some title</h1>
-                    <div class="company">some company</div>
-                    <div class="contact">some contact</div>
-                    <div class="description">some description</div>
-                    <div class="location-2">some location</div>
-                    <div class="salary">some salary</div>
-                </root>`
+                content: jobContent
             })
 
-            assert.equal(job.location, 'some location')
+            verify(job)
         })
     })
 
     describe('using xpath selector', () => {
         it('should load job details', () => {
             const job = loadJob({
-                title: '//h1/text()',
-                company: '//div[@class="company"]',
-                contact: '//div[@class="contact"]',
-                description: '//div[@class="description"]',
+                title: '//h1/text()////',
+                company: '//div[@class="company"]/text()',
+                contact: '//div[@class="contact"]/text()',
+                description: '//div[@class="description"]/text()',
                 location: '//div[@class="location"]/text()',
-                salary: '//div[@class="salary"]'
+                salary: '//div[@class="salary"]/text()'
             }, {
                 url: '',
-                content: `<root>
-                    <h1>some title</h1>
-                    <div class="company">some company</div>
-                    <div class="contact">some contact</div>
-                    <div class="description">some description</div>
-                    <div class="location">some location</div>
-                    <div class="salary">some salary</div>
-                </root>`
+                content: jobContent
             })
 
-            assert.equal(job.title, 'some title')
-            assert.equal(job.location, 'some location')
+            verify(job)
         })
     })
 })

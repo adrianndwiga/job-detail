@@ -14,7 +14,7 @@ export interface JobDetailItem {
     content: string
 }
 
-interface Job {
+export interface Job {
     title: string
     company: string
     contact: string
