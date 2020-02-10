@@ -26,9 +26,7 @@ export class XPathSelector implements Selector {
     }
 
     company(): string {
-        return this.css.company ?
-            xpath.select(this.css.company, this.document).toString() :
-            ''
+        return this.selectValue(this.css.company)
     }
 
     location(): string {
