@@ -30,9 +30,9 @@ export class XPathSelector implements Selector {
     }
 
     location(): string {
-        return typeof(this.css.location) === 'string' && this.css.location ?
-                xpath.select(this.css.location, this.document).toString() :
-                ''
+        if (typeof(this.css.location) === 'string')
+            return this.selectValue(this.css.location)
+        return ''
     }
 
     contact(): string {
