@@ -9,7 +9,7 @@ export class CssSelector implements Selector {
         this.$ = cheerio.load(item.content)
     }
 
-    private text(key: string | undefined, value: string): string {
+    private text(key: string | undefined, value: string = ''): string {
         if (key) {
             const text = this.$(key).text()
             return text ? text
@@ -57,10 +57,10 @@ export class CssSelector implements Selector {
         return location
     }
     contact(): string {
-        return this.text(this.css.contact, this.$(this.css.contact).text()).replace(/contact: /gi, '')
+        return this.text(this.css.contact).replace(/contact: /gi, '')
     }
     salary(): string {
-        return this.text(this.css.salary, this.$(this.css.salary).text())
+        return this.text(this.css.salary)
     }
 }
 
