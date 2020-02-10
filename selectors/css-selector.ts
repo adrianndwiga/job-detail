@@ -39,9 +39,10 @@ export class CssSelector implements Selector {
         } else if (Array.isArray(this.css.location)) {
             for (const l of this.css.location) {
                 if (this.$(l).text()) {
-                    location = this.$(l).text().replace(/\n/g, '')
-                        .replace(/\t/g, '')
-                        .trim()
+                    location = this.text(l)
+                    // location = this.$(l).text().replace(/\n/g, '')
+                    //     .replace(/\t/g, '')
+                    //     .trim()
                 }
             }
         }
