@@ -34,9 +34,10 @@ export class CssSelector implements Selector {
         return this.$(this.css.description).html() as string
     }
     company(): string {
-        const text = this.$(this.css.company).text()
-        return this.css.company !== undefined ?
-                this.value(text) : ''
+        return this.text(this.css.company)
+        // const text = this.$(this.css.company).text()
+        // return this.css.company !== undefined ?
+        //         this.value(text) : ''
     }
     location(): string {
         let location = ''
