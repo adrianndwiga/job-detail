@@ -18,8 +18,8 @@ export class CssSelector implements Selector {
         return ''
     }
 
-    private value(v: string): string {
-        return v ? v
+    private value(text: string): string {
+        return text ? text
             .replace(/\n/g, '')
             .replace(/\t/g, '')
             .trim() : ""
