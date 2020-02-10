@@ -21,7 +21,7 @@ export class CssSelector implements Selector {
     }
 
     title(): string {
-        return this.$(this.css.title).text().replace(/\n/g, '').replace(/\t/g, '').trim()
+        return this.text(this.css.title)
     }
     description(): string {
         return this.$(this.css.description).html() as string
