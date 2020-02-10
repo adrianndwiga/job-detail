@@ -10,11 +10,13 @@ export class CssSelector implements Selector {
     }
 
     private text(key: string | undefined, value: string): string {
-        if (key)
-            return value ? value
+        if (key) {
+            const text = this.$(key).text()
+            return text ? text
                     .replace(/\n/g, '')
                     .replace(/\t/g, '')
                     .trim() : ""
+        }
         return ''
     }
 
