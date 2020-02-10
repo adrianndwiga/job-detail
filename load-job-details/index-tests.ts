@@ -21,7 +21,7 @@ describe('load job', () => {
     }
 
     const jobContent = `<root>
-    <h1>some title</h1>
+    <h1>${expectedJob.title}</h1>
     <div class="company">${expectedJob.company}</div>
     <div class="contact">${expectedJob.contact}</div>
     <div class="description">${expectedJob.description}</div>
