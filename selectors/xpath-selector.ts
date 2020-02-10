@@ -11,8 +11,10 @@ export class XPathSelector implements Selector {
         this.document = new DOMParser().parseFromString(item.content)
     }
 
-    private selectValue(expression: string) {
-        return xpath.select(expression, this.document).toString()
+    private selectValue(expression: string | undefined) {
+        if (expression)
+            return xpath.select(expression, this.document).toString()
+        return ''
     }
 
     title(): string {
@@ -20,7 +22,7 @@ export class XPathSelector implements Selector {
     }
 
     description(): string {
-        return xpath.select(this.css.description, this.document).toString()
+        return this.selectValue(this.css.description)
     }
 
     company(): string {
@@ -36,14 +38,10 @@ export class XPathSelector implements Selector {
     }
 
     contact(): string {
-        if (this.css.contact)
-            return xpath.select(this.css.contact, this.document).toString()
-        return ''
+        return this.selectValue(this.css.contact)
     }
 
     salary(): string {
-        if (this.css.salary)
-            return xpath.select(this.css.salary, this.document).toString()
-        return ''
+        return this.selectValue(this.css.salary)
     }
 }
