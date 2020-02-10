@@ -20,13 +20,6 @@ export class CssSelector implements Selector {
         return ''
     }
 
-    private value(text: string): string {
-        return text ? text
-            .replace(/\n/g, '')
-            .replace(/\t/g, '')
-            .trim() : ""
-    }
-
     title(): string {
         return this.$(this.css.title).text().replace(/\n/g, '').replace(/\t/g, '').trim()
     }
@@ -35,9 +28,6 @@ export class CssSelector implements Selector {
     }
     company(): string {
         return this.text(this.css.company)
-        // const text = this.$(this.css.company).text()
-        // return this.css.company !== undefined ?
-        //         this.value(text) : ''
     }
     location(): string {
         let location = ''
