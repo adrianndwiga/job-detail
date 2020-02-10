@@ -34,15 +34,12 @@ export class CssSelector implements Selector {
 
     location(): string {
         let location = ''
-        if (typeof (this.css.location) === 'string') {
+        if (typeof (this.css.location) === 'string')
             location = this.text(this.css.location)
-        } else if (Array.isArray(this.css.location)) {
-            for (const l of this.css.location) {
-                if (this.$(l).text()) {
+        else if (Array.isArray(this.css.location))
+            for (const l of this.css.location)
+                if (this.$(l).text())
                     location = this.text(l)
-                }
-            }
-        }
         return location
     }
 
