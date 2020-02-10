@@ -9,7 +9,7 @@ export class CssSelector implements Selector {
         this.$ = cheerio.load(item.content)
     }
 
-    private text(key: string | undefined, value: string = ''): string {
+    private text(key: string | undefined): string {
         if (key) {
             const text = this.$(key).text()
             return text ? text
