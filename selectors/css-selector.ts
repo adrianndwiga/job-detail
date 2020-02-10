@@ -35,10 +35,6 @@ export class CssSelector implements Selector {
     location(): string {
         let location = ''
         if (typeof (this.css.location) === 'string') {
-            // location = this.css.location ? this.$(this.css.location).text()
-            //     .replace(/\n/g, '')
-            //     .replace(/\t/g, '')
-            //     .trim() : ""
             location = this.text(this.css.location)
         } else if (Array.isArray(this.css.location)) {
             for (const l of this.css.location) {
