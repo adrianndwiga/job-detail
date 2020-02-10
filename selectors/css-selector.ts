@@ -40,9 +40,6 @@ export class CssSelector implements Selector {
             for (const l of this.css.location) {
                 if (this.$(l).text()) {
                     location = this.text(l)
-                    // location = this.$(l).text().replace(/\n/g, '')
-                    //     .replace(/\t/g, '')
-                    //     .trim()
                 }
             }
         }
