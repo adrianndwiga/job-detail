@@ -11,8 +11,12 @@ export class XPathSelector implements Selector {
         this.document = new DOMParser().parseFromString(item.content)
     }
 
+    private selectValue(expression: string) {
+        return xpath.select(expression, this.document).toString()
+    }
+
     title(): string {
-        return xpath.select(this.css.title, this.document).toString()
+        return this.selectValue(this.css.title)
     }
 
     description(): string {
