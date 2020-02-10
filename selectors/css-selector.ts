@@ -34,7 +34,7 @@ export class CssSelector implements Selector {
             .replace(/\n/g, '')
             .replace(/\t/g, '')
             .trim() : ""
-        } else if(typeof(this.css.location) === 'object') {
+        } else if(Array.isArray(this.css.location)) {
             for(const l of this.css.location) {
                 if (this.$(l).text()) {
                     location = this.$(l).text().replace(/\n/g, '')
