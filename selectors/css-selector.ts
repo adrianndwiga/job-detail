@@ -18,6 +18,13 @@ export class CssSelector implements Selector {
         return ''
     }
 
+    private value(v: string): string {
+        return v ? v
+            .replace(/\n/g, '')
+            .replace(/\t/g, '')
+            .trim() : ""
+    }
+
     title(): string {
         return this.$(this.css.title).text().replace(/\n/g, '').replace(/\t/g, '').trim()
     }
@@ -25,7 +32,8 @@ export class CssSelector implements Selector {
         return this.$(this.css.description).html() as string
     }
     company(): string {
-        return this.text(this.css.company, this.$(this.css.company).text())
+        return this.css.company !== undefined ?
+                this.value(this.$(this.css.company).text()) : ''
     }
     location(): string {
         let location = ''
@@ -52,3 +60,5 @@ export class CssSelector implements Selector {
         return this.text(this.css.salary, this.$(this.css.salary).text())
     }
 }
+
+
