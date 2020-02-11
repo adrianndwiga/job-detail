@@ -20,12 +20,12 @@ describe('load job', () => {
         assert.equal(job.salary, expectedJob.salary)
     }
 
-    const jobContent = `<root>
+    const jobContent = (location: string = 'location') => `<root>
     <h1>${expectedJob.title}</h1>
     <div class="company">${expectedJob.company}</div>
     <div class="contact">${expectedJob.contact}</div>
     <div class="description">${expectedJob.description}</div>
-    <div class="location">${expectedJob.location}</div>
+    <div class="${location}">${expectedJob.location}</div>
     <div class="salary">${expectedJob.salary}</div>
 </root>`
 
@@ -40,7 +40,7 @@ describe('load job', () => {
                 salary: 'div.salary'
             }, {
                 url: '',
-                content: jobContent
+                content: jobContent()
             })
 
             verify(job)
@@ -56,7 +56,7 @@ describe('load job', () => {
                 salary: 'div.salary'
             }, {
                 url: '',
-                content: jobContent
+                content: jobContent('location-2')
             })
 
             verify(job)
@@ -74,7 +74,7 @@ describe('load job', () => {
                 salary: '//div[@class="salary"]/text()'
             }, {
                 url: '',
-                content: jobContent
+                content: jobContent()
             })
 
             verify(job)
