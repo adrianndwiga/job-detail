@@ -15,6 +15,7 @@ export interface JobDetailItem {
 }
 
 export interface Job {
+    identifier?: string
     title: string
     company: string
     contact: string
