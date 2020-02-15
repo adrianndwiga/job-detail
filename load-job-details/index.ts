@@ -1,4 +1,5 @@
 import { SelectorAdapter } from "../selectors/selector-adapter"
+import { Selector } from "../selectors/types"
 
 export interface CssConfig {
     identifier?: string
@@ -39,5 +40,17 @@ export function loadJob(css: CssConfig, item: JobDetailItem): Job {
         salary: selector.salary()
     }
 
+}
+
+export function loadJobWithCustomSelector(selector: Selector) {
+    return {
+        identifier: selector.identifier(),
+        title: selector.title(),
+        description: selector.description(),
+        company: selector.company(),
+        contact: selector.contact(),
+        location: selector.location(),
+        salary: selector.salary()
+    }
 }
 
