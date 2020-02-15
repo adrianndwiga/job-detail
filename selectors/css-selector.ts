@@ -20,6 +20,12 @@ export class CssSelector implements Selector {
         return ''
     }
 
+    identifier(): string {
+        return this.css.identifier?.startsWith('input') ?
+                    this.$(this.css.identifier).attr('value') as string
+                    : this.text(this.css.identifier)
+    }
+
     title(): string {
         return this.text(this.css.title)
     }

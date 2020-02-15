@@ -68,6 +68,15 @@ export class SelectorAdapter implements Selector {
             return ''
     }
 
+    identifier(): string {
+        if (this.config.identifier)
+            return this.isXpath(this.config.identifier) ?
+                this.xpathSelector.identifier() :
+                this.cssSelector.identifier()
+        else
+            return ''
+    }
+
     private isXpath(selector: string): boolean {
         return selector.startsWith('//')
     }

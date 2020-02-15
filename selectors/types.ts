@@ -1,4 +1,5 @@
 export interface Selector {
+    identifier(): string
     title(): string
     description(): string
     company(): string

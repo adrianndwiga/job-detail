@@ -17,6 +17,10 @@ export class XPathSelector implements Selector {
         return ''
     }
 
+    identifier(): string {
+        return this.selectValue(this.css.identifier)
+    }
+
     title(): string {
         return this.selectValue(this.css.title)
     }
