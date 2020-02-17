@@ -74,7 +74,11 @@ function loadJobDetail(baseUrl: string, html: string, config: any) {
         }
 }
 
-async function loadJob(job: Job, cookie: string, baseUrl: string, config: any): Promise<void> {
+async function loadJob(
+                    job: Job,
+                    cookie: string,
+                    baseUrl: string,
+                    config: any): Promise<void> {
     const response = await request(job.link.startsWith('https://') ? job.link : `${baseUrl}${job.link}`, cookie)
     loadJobDetail(baseUrl, response, config)
 }
@@ -83,7 +87,11 @@ async function loadJobs(file: string, config: any): Promise<void> {
     const jobSearch: Jobs = JSON.parse(readFileSync(file, 'utf8'))
 
     for(const job of jobSearch.jobs)
-        loadJob(job, jobSearch.jobSearch.cookie, jobSearch.jobSearch.baseUrl, config)
+        loadJob(
+            job,
+            jobSearch.jobSearch.cookie,
+            jobSearch.jobSearch.baseUrl,
+            config)
 }
 
 class JobDetail {
@@ -97,10 +105,7 @@ class JobDetail {
 }
 
 if (process.argv.filter(a => a.startsWith('--download-job-details'))) {
-    (async () => {
-        // const downloadJobDetails = new DownladJobDetails('./config.json', './data.json')
-        // await downloadJobDetails.load()
-    })()
+    // download job details
 } else {
     const files = JSON.parse(readFileSync('../_queues/jobs-queue.json', 'utf8'))
     const config = JSON.parse(readFileSync('config.json', 'utf8'))
