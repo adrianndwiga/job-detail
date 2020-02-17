@@ -1,6 +1,6 @@
 import { request } from "./http-request"
 
-export default class DownloadJobDetails {
+export class DownloadJobDetails {
 
     constructor(private readonly urls: string[], private readonly jobDetailsContent: { url: string, content: string }[]) {
     }
