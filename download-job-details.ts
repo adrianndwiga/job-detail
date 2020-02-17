@@ -5,11 +5,22 @@ interface JobDetailsContent {
     content: string
 }
 
+interface UrlRedirectionResponse {
+    url: string
+    data: string
+    location: string
+}
+
 export class DownloadJobDetails {
 
     constructor(
         private readonly urls: string[],
         private readonly jobDetailsContent: JobDetailsContent[]) {
+    }
+
+    private isDownloaded(location: string): boolean {
+        return this.jobDetailsContent
+                        .filter(x => x.url === location).length > 0
     }
 
     async load(): Promise<JobDetailsContent[]> {
@@ -23,10 +34,14 @@ export class DownloadJobDetails {
                     if (typeof (content) === 'string')
                         this.jobDetailsContent.push({ url, content })
                     else if (typeof (content) === 'object') {
-                        const v = content as { url: string, data: string, location: string }
-                        if (!(this.jobDetailsContent.filter(x => x.url === v.location).length > 0)) {
+                        const v = content as UrlRedirectionResponse
+                        if (!(this.isDownloaded(v.location))) {
                             const c = await request(v.location) as string
-                            this.jobDetailsContent.push({ url: v.location, content: c })
+                            const jobDetailsContent = {
+                                url: v.location,
+                                content: c
+                            }
+                            this.jobDetailsContent.push(jobDetailsContent)
                         }
                     }
                 }
