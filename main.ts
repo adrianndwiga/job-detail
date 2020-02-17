@@ -1,7 +1,6 @@
 import * as https from 'https'
 import { readFileSync } from 'fs'
 import * as cheerio from 'cheerio'
-// import { DownladJobDetails } from './download-job-details'
 
 interface JobSearchSetting {
     url: string,
@@ -31,12 +30,6 @@ interface Jobs {
     jobs: Job[]
 }
 
-// interface JobDetail {
-//     jobSearch: JobSearchSetting,
-//     job: Job
-//     jobDetail: string
-// }
-
 interface JobDetailWithDescription extends Job {
     jobDetail: string
 }
@@ -59,7 +52,6 @@ function request(url: string, cookie: string = ''): Promise<string> {
                 resolve(data)
             })
         }).on('error', err => {
-            // console.log('error retrieving request')
             reject(`Error: ${err.message}`)
         })
     })
