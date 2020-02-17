@@ -1,8 +1,15 @@
 import * as https from 'https'
 import * as http from 'http'
 
-export function request(url: string, cookie: string = ''): Promise<string | {url: string, location: string, data: string}> {
-    return new Promise<string  | {url: string, location: string, data: string}>((resolve, reject) => {
+export interface UrlRedirectionResponse {
+    url: string
+    data: string
+    location: string
+}
+
+export function request(url: string, cookie: string = ''):
+                                    Promise<string | UrlRedirectionResponse> {
+    return new Promise<string  | UrlRedirectionResponse>((resolve, reject) => {
 
         (url.startsWith('https://')  ? https : http).get(url, { headers: {'cookie': cookie}}, response => {
             let data = ''

@@ -1,14 +1,8 @@
-import { request } from "./http-request"
+import { request, UrlRedirectionResponse } from "./http-request"
 
 interface JobDetailsContent {
     url: string
     content: string
-}
-
-interface UrlRedirectionResponse {
-    url: string
-    data: string
-    location: string
 }
 
 export class DownloadJobDetails {
@@ -31,6 +25,7 @@ export class DownloadJobDetails {
 
                 if (!jobDownloaded) {
                     const content = await request(url)
+
                     if (typeof (content) === 'string')
                         this.jobDetailsContent.push({ url, content })
                     else if (typeof (content) === 'object') {
