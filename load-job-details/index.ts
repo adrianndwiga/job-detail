@@ -26,20 +26,24 @@ export interface Job {
     salary: string
 }
 
-export function loadJob(css: CssConfig, item: JobDetailItem): Job {
+// export function loadJob(css: CssConfig, item: JobDetailItem): Job {
 
-    const selector = new SelectorAdapter(css, item)
+//     const selector = new SelectorAdapter(css, item)
 
-    return {
-        identifier: selector.identifier(),
-        title: selector.title(),
-        description: selector.description(),
-        company: selector.company(),
-        contact: selector.contact(),
-        location: selector.location(),
-        salary: selector.salary()
-    }
+//     return {
+//         identifier: selector.identifier(),
+//         title: selector.title(),
+//         description: selector.description(),
+//         company: selector.company(),
+//         contact: selector.contact(),
+//         location: selector.location(),
+//         salary: selector.salary()
+//     }
 
+// }
+
+export function loadJob(selector: Selector): Job {
+    return loadJobWithCustomSelector(selector)
 }
 
 export function loadJobWithCustomSelector(selector: Selector) {

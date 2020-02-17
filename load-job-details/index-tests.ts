@@ -1,5 +1,6 @@
 import { loadJob, Job } from "."
 import * as assert from 'assert'
+import { SelectorAdapter } from "../selectors/selector-adapter"
 
 describe('load job', () => {
     const expectedJob = {
@@ -31,7 +32,7 @@ describe('load job', () => {
 
     describe('using css selector', () => {
         it('should load job details', () => {
-            const job = loadJob({
+            const selector = new SelectorAdapter({
                 title: 'h1',
                 company: 'div.company',
                 contact: 'div.contact',
@@ -43,11 +44,13 @@ describe('load job', () => {
                 content: jobContent()
             })
 
+            const job = loadJob(selector)
+
             verify(job)
         })
 
         it('should load job details 2', () => {
-            const job = loadJob({
+            const selector = new SelectorAdapter({
                 title: 'h1',
                 company: 'div.company',
                 contact: 'div.contact',
@@ -59,13 +62,15 @@ describe('load job', () => {
                 content: jobContent('location-2')
             })
 
+            const job = loadJob(selector)
+
             verify(job)
         })
     })
 
     describe('using xpath selector', () => {
         it('should load job details', () => {
-            const job = loadJob({
+            const job = loadJob(new SelectorAdapter({
                 title: '//h1/text()',
                 company: '//div[@class="company"]/text()',
                 contact: '//div[@class="contact"]/text()',
@@ -75,7 +80,7 @@ describe('load job', () => {
             }, {
                 url: '',
                 content: jobContent()
-            })
+            }))
 
             verify(job)
         })
