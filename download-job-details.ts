@@ -1,8 +1,15 @@
 import { request } from "./http-request"
 
+interface JobDetailsContent {
+    url: string
+    content: string
+}
+
 export class DownloadJobDetails {
 
-    constructor(private readonly urls: string[], private readonly jobDetailsContent: { url: string, content: string }[]) {
+    constructor(
+        private readonly urls: string[],
+        private readonly jobDetailsContent: JobDetailsContent[]) {
     }
 
     async load(): Promise<{ url: string, content: string }[]> {
