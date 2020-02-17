@@ -15,7 +15,9 @@ export class DownloadJobDetails {
     async load(): Promise<JobDetailsContent[]> {
         return new Promise<JobDetailsContent[]>(async (resolve, reject) => {
             for (const url of this.urls) {
-                const jobDownloaded = this.jobDetailsContent.filter(x => x.url === url).length > 0
+                const jobDownloaded = this.jobDetailsContent
+                                        .filter(x => x.url === url).length > 0
+
                 if (!jobDownloaded) {
                     const content = await request(url)
                     if (typeof (content) === 'string')
