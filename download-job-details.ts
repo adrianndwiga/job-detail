@@ -12,8 +12,8 @@ export class DownloadJobDetails {
         private readonly jobDetailsContent: JobDetailsContent[]) {
     }
 
-    async load(): Promise<{ url: string, content: string }[]> {
-        return new Promise<{ url: string, content: string }[]>(async (resolve, reject) => {
+    async load(): Promise<JobDetailsContent[]> {
+        return new Promise<JobDetailsContent[]>(async (resolve, reject) => {
             for (const url of this.urls) {
                 const jobDownloaded = this.jobDetailsContent.filter(x => x.url === url).length > 0
                 if (!jobDownloaded) {
